@@ -10,7 +10,7 @@ const schema = z.object({
   password: z.string().min(8),
 });
 
-export class SignUpController implements IController {
+export class SignInController implements IController {
   async handle({ body }: IRequest): Promise<IResponse> {
     try {
       const { email, password } = schema.parse(body);
