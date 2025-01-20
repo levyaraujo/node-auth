@@ -11,12 +11,13 @@ const schema = z.object({
 });
 
 export class SignInController implements IController {
+  constructor(private readonly signInUseCase: SignInUseCase) {}
+
   async handle({ body }: IRequest): Promise<IResponse> {
     try {
       const { email, password } = schema.parse(body);
 
-      const signInUseCase = new SignInUseCase();
-      const { accessToken } = await signInUseCase.execute({ email, password });
+      const { accessToken } = await this.signInUseCase.execute({ email, password });
 
       return {
         statusCode: 200,
