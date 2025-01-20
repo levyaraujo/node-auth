@@ -1,6 +1,6 @@
-import { hash } from "bcryptjs"
-import { prismaClient } from "../lib/prismaClient";
-import { AccountAlreadyExists } from "../errors/AccountAlreadyExists";
+import { hash } from 'bcryptjs'
+import { prismaClient } from '../lib/prismaClient';
+import { AccountAlreadyExists } from '../errors/AccountAlreadyExists';
 
 interface IInput {
   name: string;
