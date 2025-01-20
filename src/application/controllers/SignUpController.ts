@@ -2,6 +2,7 @@ import { z } from "zod"
 
 import { IController, IRequest, IResponse } from "../interfaces/IController";
 import { SignUpUseCase } from "../useCases/SignUpUseCase";
+import { AccountAlreadyExists } from "../errors/AccountAlreadyExists";
 
 
 const schema = z.object({
@@ -20,7 +21,7 @@ export class SignUpController implements IController {
 
       return {
         statusCode: 201,
-        body: { "message": "User created successfully" },
+        body: { message: "User created successfully" },
       };
     }
     catch (error) {
@@ -30,6 +31,14 @@ export class SignUpController implements IController {
           body: error.issues,
         };
       }
+
+      if (error instanceof AccountAlreadyExists) {
+        return {
+          statusCode: 409,
+          body: { error: "Account already exists." },
+        }
+      }
+
       throw error;
     }
 
