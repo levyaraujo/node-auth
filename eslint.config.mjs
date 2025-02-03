@@ -15,6 +15,7 @@ export default [
         avoidEscape: true,
         allowTemplateLiterals: true,
       }],
+     '@typescript-eslint/no-explicit-any': 'off',
     }
   }
 ];
