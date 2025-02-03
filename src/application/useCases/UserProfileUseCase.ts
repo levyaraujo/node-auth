@@ -8,6 +8,7 @@ interface IInput {
 interface IOutput {
   name: string;
   email: string;
+  createdAt: Date;
 }
 
 
@@ -24,6 +25,7 @@ export class UserProfileUseCase {
     return {
       name: user.name,
       email: user.email,
+      createdAt: user.createdAt,
     }
   }
 }

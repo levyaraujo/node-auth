@@ -6,9 +6,9 @@ import { UserProfileUseCase } from '../useCases/UserProfileUseCase';
 export class UserProfileController implements IController {
   constructor(private readonly userProfileUseCase: UserProfileUseCase) { }
 
-  async handle({ body }: IRequest): Promise<IResponse> {
+  async handle({ metadata }: IRequest): Promise<IResponse> {
     try {
-      const { userId } = body;
+      const { userId } = metadata;
       const user = await this.userProfileUseCase.execute({ userId });
 
       return {

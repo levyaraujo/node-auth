@@ -1,5 +1,6 @@
 export interface IRequest {
   body: Record<string, any>;
+  metadata: Record<string, any>;
 }
 
 export interface IResponse {

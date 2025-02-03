@@ -2,7 +2,6 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken'
 import { prismaClient } from '../lib/prismaClient';
 import { InvalidCredentials } from '../errors/InvalidCredentials';
-import { env } from '../config/env';
 
 interface IInput {
   email: string;
@@ -33,7 +32,7 @@ export class SignInUseCase {
 
     const accessToken = sign(
       { sub: user.id },
-      env.jwtSecret,
+      process.env.JWT_SECRET!,
       { expiresIn: '1d' }
     )
 
