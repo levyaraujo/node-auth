@@ -8,6 +8,10 @@ on:
     branches:
       - main
 
+env:
+  JWT_SECRET: ${{ secrets.JWT_SECRET }}
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -31,6 +35,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Prisma
+        run: pnpm prisma generate && pnpm prisma migrate dev
 
       - name: Run tests
         run: pnpm test
