@@ -1,23 +1,21 @@
 import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken'
-import { prismaClient } from '../lib/prismaClient';
 import { InvalidCredentials } from '../errors/InvalidCredentials';
+import { getUserByEmail } from '../lib/userRepo';
 
 interface IInput {
   email: string;
   password: string;
-};
+}
 
 interface IOutput {
   accessToken: string;
-};
+}
 
 export class SignInUseCase {
   async execute({ email, password }: IInput): Promise<IOutput> {
 
-    const user = await prismaClient.user.findUnique({
-      where: { email: email },
-    });
+    const user = await getUserByEmail(email);
 
 
     if (!user) {
