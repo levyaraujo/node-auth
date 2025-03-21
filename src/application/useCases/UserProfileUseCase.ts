@@ -1,5 +1,5 @@
 import { UserNotFound } from '../errors/UserNotFound';
-import { prismaClient } from '../lib/prismaClient';
+import {getUserById} from '../lib/userRepo';
 
 interface IInput {
   userId: string;
@@ -8,15 +8,12 @@ interface IInput {
 interface IOutput {
   name: string;
   email: string;
-  createdAt: Date;
 }
 
 
 export class UserProfileUseCase {
   async execute({ userId }: IInput): Promise<IOutput> {
-    const user = await prismaClient.user.findUnique({
-      where: { id: userId },
-    })
+    const user = await getUserById(userId);
 
     if (!user) {
       throw new UserNotFound();
@@ -25,7 +22,6 @@ export class UserProfileUseCase {
     return {
       name: user.name,
       email: user.email,
-      createdAt: user.createdAt,
     }
   }
 }
